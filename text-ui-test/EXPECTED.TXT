@@ -5,7 +5,7 @@ What can I do for you?
 |--------------------------------------|--------------| help |
 | todo <desc>                          | mark <num>   | list |
 | deadline <desc> /by <date>           | unmark <num> | bye  |
-| event <desc> /from <date> /to <date> |              |      |
+| event <desc> /from <date> /to <date> | delete <num> |      |
 |______________________________________|______________|______|
 
 
@@ -36,16 +36,18 @@ Task 2, assignment 2 marked as not done yet.
 |--------------------------------------|--------------| help |
 | todo <desc>                          | mark <num>   | list |
 | deadline <desc> /by <date>           | unmark <num> | bye  |
-| event <desc> /from <date> /to <date> |              |      |
+| event <desc> /from <date> /to <date> | delete <num> |      |
 |______________________________________|______________|______|
 
 
+I'm not sure what that means :(
+Here's what I can do for you,
 .____________________________________________________________.
 | Add Task                             | Update Task  |      |
 |--------------------------------------|--------------| help |
 | todo <desc>                          | mark <num>   | list |
 | deadline <desc> /by <date>           | unmark <num> | bye  |
-| event <desc> /from <date> /to <date> |              |      |
+| event <desc> /from <date> /to <date> | delete <num> |      |
 |______________________________________|______________|______|
 
 
@@ -66,5 +68,18 @@ Oops! Your event is missing a start date/time -> /from <date>
 Oops! Your event is missing a start date/time -> /from <date>
 
 Oops! Your event is missing a end date/time -> /to <date>
+
+1. [T][?] homework1
+2. [D][ ] assignment 2 (by: sunday)
+3. [E][ ] tutorial 4 (from: mon 2pm to: 4pm)
+
+I've removed the task
+[D][ ] assignment 2 (by: sunday)
+from your list.
+
+1. [T][?] homework1
+2. [E][ ] tutorial 4 (from: mon 2pm to: 4pm)
+
+Oops! That's not a valid index.
 
 Bye! ?(???)

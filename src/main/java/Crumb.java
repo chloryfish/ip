@@ -15,7 +15,7 @@ public class Crumb {
                 "|--------------------------------------|--------------| help |\n" +
                 "| todo <desc>                          | mark <num>   | list |\n" +
                 "| deadline <desc> /by <date>           | unmark <num> | bye  |\n" +
-                "| event <desc> /from <date> /to <date> |              |      |\n" +
+                "| event <desc> /from <date> /to <date> | delete <num> |      |\n" +
                 "|______________________________________|______________|______|\n\n";
 
         System.out.println("Hey, I'm Crumb! ദ്ദി◝ ⩊ ◜)\nWhat can I do for you?");
@@ -63,6 +63,22 @@ public class Crumb {
                         target.unmark();
                         System.out.println("Task " + idx + ", " + target.description + " marked as not done yet.\n");
                     }
+                    case "delete" -> {
+                        if (count == 0) {
+                            throw new Exception("Your list is empty :0");
+                        }
+                        if (instruction.length < 2 || !instruction[1].matches("\\d+")) {
+                            throw new NumberFormatException("Oops! That's not a valid index.");
+                        }
+                        int idx = Integer.parseInt(instruction[1]);
+                        if (idx > count) {
+                            throw new IndexOutOfBoundsException("Oops! That task doesn't exist. You have " + count + " task(s).");
+                        }
+                        Task target = list.get(idx-1); //idx given is 1-based
+                        list.remove(target);
+                        System.out.println("I've removed the task\n" + target.toString() + "\nfrom your list.\n");
+                        count--;
+                    }
                     case "todo" -> {
                         if (instruction.length < 2) {
                             throw new IndexOutOfBoundsException("Oops! Your task is missing a description.");
@@ -91,7 +107,7 @@ public class Crumb {
                     }
                     case "event" -> {
                         if (instruction.length < 2) {
-                            throw new IndexOutOfBoundsException("Oops! Your task is missing a description.");
+                            throw new IndexOutOfBoundsException("Oops! Your task is javamissing a description.");
                         }
                         String body = instruction[1];
                         String[] s1 = body.split(" /from ", 2);
