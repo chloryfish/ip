@@ -111,6 +111,7 @@ public class Crumb {
                         System.out.println(">> Added event " + desc + ", from " + from + " to " + to + "\n");
                     }
                     default -> {
+                        System.out.println("I'm not sure what that means :(\nHere's what I can do for you,");
                         System.out.println(instTable);
                     }
                 }
