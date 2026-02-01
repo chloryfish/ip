@@ -1,0 +1,21 @@
+todo homework1
+list
+deadline assignment 2 /by Sunday
+event Tutorial 4 /from Mon 2pm /to 4pm
+list
+mark 1
+mark 2
+unmark 2
+list
+help
+lis
+todo
+mark 6
+mark
+deadline
+deadline something
+event
+event /from
+event some event
+event some event /from time
+bye

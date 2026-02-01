@@ -1,7 +1,70 @@
-Hello from
- ____        _        
-|  _ \ _   _| | _____ 
-| | | | | | | |/ / _ \
-| |_| | |_| |   <  __/
-|____/ \__,_|_|\_\___|
+Hey, I'm Crumb! ????? ? ?)
+What can I do for you?
+.____________________________________________________________.
+| Add Task                             | Update Task  |      |
+|--------------------------------------|--------------| help |
+| todo <desc>                          | mark <num>   | list |
+| deadline <desc> /by <date>           | unmark <num> | bye  |
+| event <desc> /from <date> /to <date> |              |      |
+|______________________________________|______________|______|
 
+
+>> Added task: homework1
+
+1. [T][ ] homework1
+
+>> Added task: assignment 2 due by sunday
+
+>> Added event tutorial 4, from mon 2pm to 4pm
+
+1. [T][ ] homework1
+2. [D][ ] assignment 2 (by: sunday)
+3. [E][ ] tutorial 4 (from: mon 2pm to: 4pm)
+
+Task 1, homework1 completed. Good job!
+
+Task 2, assignment 2 completed. Good job!
+
+Task 2, assignment 2 marked as not done yet.
+
+1. [T][?] homework1
+2. [D][ ] assignment 2 (by: sunday)
+3. [E][ ] tutorial 4 (from: mon 2pm to: 4pm)
+
+.____________________________________________________________.
+| Add Task                             | Update Task  |      |
+|--------------------------------------|--------------| help |
+| todo <desc>                          | mark <num>   | list |
+| deadline <desc> /by <date>           | unmark <num> | bye  |
+| event <desc> /from <date> /to <date> |              |      |
+|______________________________________|______________|______|
+
+
+.____________________________________________________________.
+| Add Task                             | Update Task  |      |
+|--------------------------------------|--------------| help |
+| todo <desc>                          | mark <num>   | list |
+| deadline <desc> /by <date>           | unmark <num> | bye  |
+| event <desc> /from <date> /to <date> |              |      |
+|______________________________________|______________|______|
+
+
+Oops! Your task is missing a description.
+
+Oops! That task doesn't exist. You have 3 task(s).
+
+Oops! That's not a valid index.
+
+Oops! Your task is missing a description.
+
+Oops! Your task is missing a deadline -> /by <date>
+
+Oops! Your task is missing a description.
+
+Oops! Your event is missing a start date/time -> /from <date>
+
+Oops! Your event is missing a start date/time -> /from <date>
+
+Oops! Your event is missing a end date/time -> /to <date>
+
+Bye! ?(???)
