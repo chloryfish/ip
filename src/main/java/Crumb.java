@@ -1,3 +1,9 @@
+import java.io.BufferedWriter;
+import java.io.File;
+import java.io.FileWriter;
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.StandardCopyOption;
 import java.util.ArrayList;
 import java.util.Objects;
 import java.util.Scanner;
@@ -5,9 +11,11 @@ import java.util.Scanner;
 public class Crumb {
 
     protected static int count = 0;
-    public static void main(String[] args) {
+    protected static String DELIMITER = "@@";
+    public static void main(String[] args) throws IOException {
+
         Scanner sc = new Scanner(System.in);
-        ArrayList<Task> list = new ArrayList<>();
+        ArrayList<Task> tasks = loadData();
 
         //String lineBreak = "______________________________________________________________";
         String instTable = ".____________________________________________________________.\n" +
@@ -30,7 +38,7 @@ public class Crumb {
 
                 switch (instruction[0]) {
                     case "help" -> System.out.println(instTable);
-                    case "list" -> System.out.println(formatList(list, count));
+                    case "list" -> System.out.println(formatList(tasks, count));
                     case "mark" -> {
                         if (count == 0) {
                             throw new Exception("Your list is empty :0");
@@ -42,11 +50,11 @@ public class Crumb {
                         if (idx > count) {
                             throw new IndexOutOfBoundsException("Oops! That task doesn't exist. You have " + count + " task(s).");
                         }
-                        Task target = list.get(idx-1); //idx given is 1-based
+                        Task target = tasks.get(idx-1); //idx given is 1-based
                         target.markAsDone();
                         System.out.println("Task " + idx + ", " + target.description + " completed. Good job!\n");
 
-
+                        saveData(tasks);
                     }
                     case "unmark" -> {
                         if (count == 0) {
@@ -59,9 +67,11 @@ public class Crumb {
                         if (idx > count) {
                             throw new IndexOutOfBoundsException("Oops! That task doesn't exist. You have " + count + " task(s).");
                         }
-                        Task target = list.get(idx-1); //idx given is 1-based
+                        Task target = tasks.get(idx-1); //idx given is 1-based
                         target.unmark();
                         System.out.println("Task " + idx + ", " + target.description + " marked as not done yet.\n");
+
+                        saveData(tasks);
                     }
                     case "delete" -> {
                         if (count == 0) {
@@ -74,10 +84,12 @@ public class Crumb {
                         if (idx > count) {
                             throw new IndexOutOfBoundsException("Oops! That task doesn't exist. You have " + count + " task(s).");
                         }
-                        Task target = list.get(idx-1); //idx given is 1-based
-                        list.remove(target);
+                        Task target = tasks.get(idx-1); //idx given is 1-based
+                        tasks.remove(target);
                         System.out.println("I've removed the task\n" + target.toString() + "\nfrom your list.\n");
                         count--;
+
+                        saveData(tasks);
                     }
                     case "todo" -> {
                         if (instruction.length < 2) {
@@ -85,9 +97,11 @@ public class Crumb {
                         }
                         String body = instruction[1];
                         Task newTask = new ToDo(body);
-                        list.add(newTask);
+                        tasks.add(newTask);
                         count++;
                         System.out.println(">> Added task: " + body + "\n");
+
+                        saveData(tasks);
                     }
                     case "deadline" -> {
                         if (instruction.length < 2) {
@@ -101,9 +115,11 @@ public class Crumb {
                         String desc = s[0];
                         String by = s[1];
                         Task newTask = new Deadline(desc, by);
-                        list.add(newTask);
+                        tasks.add(newTask);
                         count++;
                         System.out.println(">> Added task: " + desc + " due by " + by + "\n");
+
+                        saveData(tasks);
                     }
                     case "event" -> {
                         if (instruction.length < 2) {
@@ -122,9 +138,11 @@ public class Crumb {
                         String from = s2[0];
                         String to = s2[1];
                         Task newTask = new Event(desc, from, to);
-                        list.add(newTask);
+                        tasks.add(newTask);
                         count++;
                         System.out.println(">> Added event " + desc + ", from " + from + " to " + to + "\n");
+
+                        saveData(tasks);
                     }
                     default -> {
                         System.out.println("I'm not sure what that means :(\nHere's what I can do for you,");
@@ -149,16 +167,81 @@ public class Crumb {
     /**
      * Returns tasks as formatted multi-line string
      *
-     * @param list the list of tasks to be formatted.
+     * @param tasks the list of tasks to be formatted.
      * @param n count; number of tasks in the list.
      * @return Formatted task list as String.
      */
-    public static String formatList(ArrayList<Task> list, int n) {
+    public static String formatList(ArrayList<Task> tasks, int n) {
         String out = "";
         for (int i=0; i < n; i++) {
-            out += (i+1) + ". " + list.get(i).toString() + "\n";
+            out += (i+1) + ". " + tasks.get(i).toString() + "\n";
         }
         return out;
+    }
+
+    public static ArrayList<Task> loadData() throws IOException {
+        File file = new File("data/crumb.txt");
+        file.createNewFile();
+        Scanner sc = new Scanner(file);
+        ArrayList<Task> tasks = new ArrayList<>();
+        int c = 0;
+
+        while (sc.hasNextLine()) {
+            String row = sc.nextLine();
+            if (!isValidRow(row)) {
+                continue;
+            }
+            String[] fields = row.split(DELIMITER);
+            Task newTask;
+            switch (row.charAt(1)) {
+                case 'T' -> newTask = new ToDo(fields[1]);
+                case 'D' -> newTask = new Deadline(fields[1], fields[2]);
+                case 'E' -> newTask = new Event(fields[1], fields[2], fields[3]);
+                default -> {
+
+                    continue;
+                }
+            }
+            c++;
+            if (row.charAt(2) == '1') {
+                newTask.markAsDone();
+            }
+            tasks.add(newTask);
+        }
+        count = c;
+        sc.close();
+        return tasks;
+    }
+
+    public static boolean isValidRow(String row) {
+        if (row.length() < 6
+                || !Character.isDigit(row.charAt(0))
+                || "TED".indexOf(row.charAt(1)) == -1
+                || !row.contains("@@")) {
+            return false;
+        }
+        int fieldCount = row.split(DELIMITER).length;
+
+        return (row.charAt(1) != 'D' || fieldCount >= 3)
+                && (row.charAt(1) != 'E' || fieldCount >= 4);
+    }
+
+    public static void saveData(ArrayList<Task> tasks) throws IOException {
+        File original = new File("data/crumb.txt");
+        File temp = new File("data/crumb.tmp");
+
+        try (BufferedWriter bw = new BufferedWriter(new FileWriter(temp))) {
+            for (int i=0; i < tasks.size(); i++) {
+                String row = tasks.get(i).toFileString(i);
+                bw.write(row);
+                bw.newLine();
+            }
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+
+        Files.move(temp.toPath(), original.toPath(), StandardCopyOption.REPLACE_EXISTING);
+
     }
 
 }

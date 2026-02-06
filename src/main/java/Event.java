@@ -13,4 +13,11 @@ public class Event extends Task {
     public String toString() {
         return "[E]" + super.toString() + " (from: " + from + " to: " + to + ")";
     }
+
+    @Override
+    public String toFileString(int index) {
+        return index + "E" + (isDone ? '1' : '0') + Crumb.DELIMITER + description
+                + Crumb.DELIMITER + from
+                + Crumb.DELIMITER + to;
+    }
 }
