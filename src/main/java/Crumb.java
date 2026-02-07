@@ -4,14 +4,18 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.StandardCopyOption;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.Objects;
 import java.util.Scanner;
+
 
 public class Crumb {
 
     protected static int count = 0;
     protected static String DELIMITER = "@@";
+    protected static DateTimeFormatter formatter = DateTimeFormatter.ofPattern("ddMMyy");
     public static void main(String[] args) throws IOException {
 
         Scanner sc = new Scanner(System.in);
@@ -113,11 +117,11 @@ public class Crumb {
                             throw new IndexOutOfBoundsException("Oops! Your task is missing a deadline -> /by <date>");
                         }
                         String desc = s[0];
-                        String by = s[1];
+                        LocalDate by = parseDate(s[1]);
                         Task newTask = new Deadline(desc, by);
                         tasks.add(newTask);
                         count++;
-                        System.out.println(">> Added task: " + desc + " due by " + by + "\n");
+                        System.out.println(">> Added task: " + desc + " due by " + formatDateReadable(by) + "\n");
 
                         saveData(tasks);
                     }
@@ -135,12 +139,12 @@ public class Crumb {
                         if (s2.length < 2) {
                             throw new IndexOutOfBoundsException("Oops! Your event is missing a end date/time -> /to <date>");
                         }
-                        String from = s2[0];
-                        String to = s2[1];
+                        LocalDate from = parseDate(s2[0]);
+                        LocalDate to = parseDate(s2[1]);
                         Task newTask = new Event(desc, from, to);
                         tasks.add(newTask);
                         count++;
-                        System.out.println(">> Added event " + desc + ", from " + from + " to " + to + "\n");
+                        System.out.println(">> Added event " + desc + ", from " + formatDateReadable(from) + " to " + formatDateReadable(to) + "\n");
 
                         saveData(tasks);
                     }
@@ -195,8 +199,8 @@ public class Crumb {
             Task newTask;
             switch (row.charAt(1)) {
                 case 'T' -> newTask = new ToDo(fields[1]);
-                case 'D' -> newTask = new Deadline(fields[1], fields[2]);
-                case 'E' -> newTask = new Event(fields[1], fields[2], fields[3]);
+                case 'D' -> newTask = new Deadline(fields[1], LocalDate.parse(fields[2]));
+                case 'E' -> newTask = new Event(fields[1], LocalDate.parse(fields[2]), LocalDate.parse(fields[3]));
                 default -> {
 
                     continue;
@@ -242,6 +246,14 @@ public class Crumb {
 
         Files.move(temp.toPath(), original.toPath(), StandardCopyOption.REPLACE_EXISTING);
 
+    }
+
+    public static LocalDate parseDate(String dateString) {
+        return LocalDate.parse(dateString, formatter);
+    }
+
+    public static String formatDateReadable(LocalDate date) {
+        return date.format(DateTimeFormatter.ofPattern("d MMM yyyy"));
     }
 
 }
