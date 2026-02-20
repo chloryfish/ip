@@ -1,3 +1,5 @@
+package Crumb.Task;
+
 public class Task {
     protected String description;
     protected boolean isDone;
@@ -9,6 +11,10 @@ public class Task {
 
     public String getStatusIcon() {
         return (isDone ? "✔" : " "); // mark done task with X
+    }
+
+    public String getDescription() {
+        return this.description;
     }
 
     public void markAsDone() {
@@ -24,8 +30,12 @@ public class Task {
         return "[" + this.getStatusIcon() + "] " + description;
     }
 
-    public String toFileString(int index) {
+    public String toFileString(int index, String delimiter) {
         return "";
+    }
+
+    public String toShorthand(int index) {
+        return index + ". " + description;
     }
 }
 
