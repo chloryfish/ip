@@ -1,5 +1,8 @@
 package Crumb;
 
+import Crumb.Task.Task;
+
+import java.util.ArrayList;
 import java.util.Scanner;
 
 public class Ui {
@@ -17,10 +20,10 @@ public class Ui {
     public static void showInstructionTable() {
         String INSTRUCTIONS = ".________________________________________________________________.\n" +
                 "| Add Task                                 | Update Task  |      |\n" +
-                "|------------------------------------------|--------------| help |\n" +
-                "| todo <desc>                              | mark <num>   | list |\n" +
-                "| deadline <desc> /by <DDMMYY>             | unmark <num> | bye  |\n" +
-                "| event <desc> /from <DDMMYY> /to <DDMMYY> | delete <num> |      |\n" +
+                "|------------------------------------------|--------------| list |\n" +
+                "| todo <desc>                              | mark <num>   | find |\n" +
+                "| deadline <desc> /by <DDMMYY>             | unmark <num> | help |\n" +
+                "| event <desc> /from <DDMMYY> /to <DDMMYY> | delete <num> | bye  |\n" +
                 "|__________________________________________|______________|______|\n";
         System.out.println(INSTRUCTIONS);
     }
@@ -45,6 +48,11 @@ public class Ui {
             out+= " added to your list.\n";
         }
         System.out.println(out);
+    }
+
+    public static void showSearchResults(String results) {
+        System.out.println("Here are the matching tasks in your list: ");
+        System.out.println(results);
     }
 
     public static void showGoodbye() {
@@ -76,6 +84,11 @@ public class Ui {
     public static void showMissingToError() {
         System.out.println("Oops! Your event is missing an end date.\n" +
                 "Format :     event <desc> /from <DDMMYY> /to <DDMMYY>\n");
+    }
+
+    public static void showMissingQueryError() {
+        System.out.println("Oops! Your query is missing a keyword!\n" +
+                "Format :     find <keyword>\n");
     }
 
     public static void showListEmptyError() {

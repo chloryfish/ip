@@ -103,6 +103,13 @@ public class Parser {
                     }*/
                     return new DeleteCommand(idx-1);
                 }
+                case "find" -> {
+                    if (instruction.length < 2) {
+                        Ui.showMissingQueryError();
+                        return null;
+                    }
+                    return new FindCommand(instruction[1]);
+                }
                 case "list" -> {
                     return new ListCommand();
                 }

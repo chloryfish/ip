@@ -58,10 +58,28 @@ public class TaskList {
         this.tasks.get(index).unmark();
     }
 
+    public ArrayList<Task> findTasks(String keyword) {
+        ArrayList<Task> out = new ArrayList<>();
+        for (Task t : this.tasks) {
+            if (t.getDescription().contains(keyword)) {
+                out.add(t);
+            }
+        }
+        return out;
+    }
+
     public String formatList() {
         String out = "";
         for (int i=0; i < this.getCount(); i++) {
             out += (i+1) + ". " + tasks.get(i).toString() + "\n";
+        }
+        return out;
+    }
+
+    public String formatList(ArrayList<Task> t) {
+        String out = "";
+        for (int i=0; i < t.size(); i++) {
+            out += (i+1) + ". " + t.get(i).toString() + "\n";
         }
         return out;
     }
