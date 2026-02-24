@@ -1,20 +1,30 @@
 package Crumb.Command;
 
+import java.io.IOException;
+
 import Crumb.Storage;
-import Crumb.Task.Task;
 import Crumb.TaskList;
 import Crumb.Ui;
 
-import java.io.IOException;
-
-public class UnmarkCommand extends Command{
+/**
+ * Command that marks a task as not done
+ * Identified by index (0-based)
+ */
+public class UnmarkCommand extends Command {
 
     protected int index;
 
+    /**
+     * Constructor
+     * Referenced by Parser
+     */
     public UnmarkCommand(int index) {
         this.index = index;
     }
 
+    /**
+     * Executes this command
+     */
     public void execute(TaskList tasks, Storage storage) throws IOException {
         tasks.unMarkTask(index);
         Ui.showSuccessMessage("unmark", tasks.getShorthand(index));

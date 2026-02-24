@@ -1,15 +1,38 @@
 package Crumb;
 
-import Crumb.Command.*;
-
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
 
+import Crumb.Command.Command;
+import Crumb.Command.CreateDeadlineCommand;
+import Crumb.Command.CreateEventCommand;
+import Crumb.Command.CreateToDoCommand;
+import Crumb.Command.DeleteCommand;
+import Crumb.Command.ExitCommand;
+import Crumb.Command.FindCommand;
+import Crumb.Command.HelpCommand;
+import Crumb.Command.ListCommand;
+import Crumb.Command.MarkCommand;
+import Crumb.Command.UnmarkCommand;
+
+
+
+/**
+ * Deals with making sense of the user command
+ */
 public class Parser {
 
-    protected static DateTimeFormatter formatter = DateTimeFormatter.ofPattern("ddMMyy");
+    /**
+     * Datetime formatter for inputs
+     */
+    protected static final DateTimeFormatter FORMATTER = DateTimeFormatter.ofPattern("ddMMyy");
 
+    /**
+     * Parses user command
+     * @param in User command as a string
+     * @return corresponding Command object
+     */
     public static Command parse(String in) {
         String[] instruction = in.split(" ", 2);
 
@@ -71,10 +94,7 @@ public class Parser {
                         return null;
                     }
                     int idx = Integer.parseInt(instruction[1]);
-                    /*if (idx > count) {
-                        throw new IndexOutOfBoundsException("Oops! That task doesn't exist. You have " + count + " task(s).");
-                    }*/
-                    return new MarkCommand(idx-1);
+                    return new MarkCommand(idx - 1);
                 }
                 case "unmark" -> {
                     if (instruction.length < 2 || !instruction[1].matches("\\d+")) {
@@ -82,26 +102,16 @@ public class Parser {
                         return null;
                     }
                     int idx = Integer.parseInt(instruction[1]);
-                    /*if (idx > count) {
-                        throw new IndexOutOfBoundsException("Oops! That task doesn't exist. You have " + count + " task(s).");
-                    }*/
-                    return new UnmarkCommand(idx-1);
+                    return new UnmarkCommand(idx - 1);
 
                 }
                 case "delete" -> {
-                    /*int count = Crumb.count;
-                    if (count == 0) {
-                        throw new Exception("Your list is empty :0");
-                    }*/
                     if (instruction.length < 2 || !instruction[1].matches("\\d+")) {
                         Ui.showInvalidIndexError();
                         return null;
                     }
                     int idx = Integer.parseInt(instruction[1]);
-                    /*if (idx > count) {
-                        throw new IndexOutOfBoundsException("Oops! That task doesn't exist. You have " + count + " task(s).");
-                    }*/
-                    return new DeleteCommand(idx-1);
+                    return new DeleteCommand(idx - 1);
                 }
                 case "find" -> {
                     if (instruction.length < 2) {
@@ -129,15 +139,25 @@ public class Parser {
         }
     }
 
+    /**
+     * Converts user-given string to LocalDate object
+     * @param dateString user-given date string
+     * @return LocalDate object
+     */
     public static LocalDate parseDate(String dateString) {
         try {
-            return LocalDate.parse(dateString, formatter);
+            return LocalDate.parse(dateString, FORMATTER);
         } catch (DateTimeParseException e) {
             Ui.showInvalidDateError();
             return null;
         }
     }
 
+    /**
+     * Converts LocalDate object to readable string
+     * @param date LocalDate object
+     * @return readable string with format d MMM yyyy (e.g. "1 Jan 2026")
+     */
     public static String formatDateReadable(LocalDate date) {
         return date.format(DateTimeFormatter.ofPattern("d MMM yyyy"));
     }

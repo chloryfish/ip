@@ -1,14 +1,22 @@
 package Crumb;
 
-import Crumb.Command.Command;
-import Crumb.Task.*;
 import java.util.ArrayList;
 
+import Crumb.Command.Command;
+import Crumb.Task.Task;
+
+/**
+ * Main class for Application
+ */
 public class Crumb {
 
-    private final Storage storage;
     public static TaskList tasks;
+    private final Storage storage;
 
+    /**
+     * Constructor for Crumb class
+     * @param filePath filepath for local task file
+     */
     public Crumb(String filePath) {
         storage = new Storage(filePath);
         try {
@@ -20,6 +28,9 @@ public class Crumb {
         }
     }
 
+    /**
+     * Run the application
+     */
     public void run() {
         Ui.showWelcome();
         boolean isExit = false;
@@ -38,7 +49,7 @@ public class Crumb {
             }
         }
     }
-    public static void main(String[] args){
+    public static void main(String[] args) {
         new Crumb("data/tasks.txt").run();
     }
 

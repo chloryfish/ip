@@ -1,7 +1,5 @@
 package Crumb;
 
-import Crumb.Task.*;
-
 import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileWriter;
@@ -12,15 +10,35 @@ import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Scanner;
 
+import Crumb.Task.Deadline;
+import Crumb.Task.Event;
+import Crumb.Task.Task;
+import Crumb.Task.ToDo;
+
+
+/**
+ * Loads and saves tasks in the file
+ */
 public class Storage {
 
+    /**
+     * Delimiter between fields
+     */
     protected static final String DELIMITER = "@@";
+
+    /**
+     * File path of txt file
+     */
     protected String filePath;
 
     public Storage(String filePath) {
         this.filePath = filePath;
     }
 
+    /**
+     * Loads list of tasks from txt file
+     * @return list of tasks in ArrayList
+     */
     public ArrayList<Task> load() throws IOException {
         File file = new File(filePath);
         file.createNewFile();
@@ -54,6 +72,10 @@ public class Storage {
         return tasks;
     }
 
+    /**
+     * Updates task file, called after create, update, delete operations.
+     * @param tList TaskList object containing all current tasks
+     */
     public void saveData(TaskList tList) throws IOException {
         File original = new File(filePath);
         String tmp = filePath.replace(".txt", ".tmp");
@@ -62,7 +84,7 @@ public class Storage {
         ArrayList<Task> tasks = tList.tasks;
 
         try (BufferedWriter bw = new BufferedWriter(new FileWriter(temp))) {
-            for (int i=0; i < tasks.size(); i++) {
+            for (int i = 0; i < tasks.size(); i++) {
                 String row = tasks.get(i).toFileString(i, DELIMITER);
                 bw.write(row);
                 bw.newLine();
@@ -75,6 +97,15 @@ public class Storage {
 
     }
 
+    /**
+     * Checks if given task row is in valid format. Referenced in load()
+     * Format: [index]T[isDone]@@[description]
+     *         [index]D[isDone]@@[description]@@[by]
+     *         [index]E[isDone]@@[description]@@[from]@@[to]
+     * Date format: yyyy-MM-dd
+     * @param row String representing a task
+     * @return if row is in valid format.
+     */
     public boolean isValidRow(String row) {
         if (row.length() < 6
                 || !Character.isDigit(row.charAt(0))
