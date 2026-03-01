@@ -5,7 +5,7 @@ import java.util.ArrayList;
 import Crumb.Storage;
 import Crumb.Task.Task;
 import Crumb.TaskList;
-import Crumb.Ui;
+import Crumb.UiString;
 
 
 /**
@@ -25,9 +25,9 @@ public class FindCommand extends Command {
     /**
      * Executes this command
      */
-    public void execute(TaskList tasks, Storage storage) {
+    public String execute(TaskList tasks, Storage storage) {
         ArrayList<Task> t = tasks.findTasks(this.keyword);
         String results = tasks.formatList(t);
-        Ui.showSearchResults(results);
+        return UiString.getSearchResults(results);
     }
 }

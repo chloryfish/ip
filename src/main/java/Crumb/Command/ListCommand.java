@@ -2,13 +2,13 @@ package Crumb.Command;
 
 import Crumb.Storage;
 import Crumb.TaskList;
-import Crumb.Ui;
+import Crumb.UiString;
 
 /**
  * Command that displays formatted list of tasks
  */
 public class ListCommand extends Command {
-    public void execute(TaskList tasks, Storage storage) {
-        Ui.displayList(tasks.formatList());
+    public String execute(TaskList tasks, Storage storage) {
+        return UiString.getList(tasks.formatList());
     }
 }

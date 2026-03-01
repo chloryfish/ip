@@ -4,7 +4,7 @@ import java.io.IOException;
 
 import Crumb.Storage;
 import Crumb.TaskList;
-import Crumb.Ui;
+import Crumb.UiString;
 
 
 /**
@@ -26,9 +26,10 @@ public class MarkCommand extends Command {
     /**
      * Executes this command
      */
-    public void execute(TaskList tasks, Storage storage) throws IOException {
+    public String execute(TaskList tasks, Storage storage) throws IOException {
         tasks.markTask(index);
-        Ui.showSuccessMessage("mark", tasks.getShorthand(index));
+        String msg = UiString.getSuccessMessage("mark", tasks.getShorthand(index));
         storage.saveData(tasks);
+        return msg;
     }
 }

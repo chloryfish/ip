@@ -5,7 +5,7 @@ import java.time.LocalDate;
 
 import Crumb.Storage;
 import Crumb.TaskList;
-import Crumb.Ui;
+import Crumb.UiString;
 
 /**
  * Command that creates and adds Deadline-type task to TaskList
@@ -27,9 +27,9 @@ public class CreateDeadlineCommand extends Command {
     /**
      * Executes this command
      */
-    public void execute(TaskList tasks, Storage storage) throws IOException {
+    public String execute(TaskList tasks, Storage storage) throws IOException {
         int index = tasks.addTask(this.description, this.by);
         storage.saveData(tasks);
-        Ui.showSuccessMessage("add", tasks.getShorthand(index));
+        return UiString.getSuccessMessage("add", tasks.getShorthand(index));
     }
 }

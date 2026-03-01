@@ -1,0 +1,54 @@
+.root {
+    sunflower: #FEB537;
+    brown: #9D572C;
+    almost-black: #140A07;
+    dark-grey: #7A726C;
+    dust-grey: #DFDAD0;
+    off-white: #FFFAEE;
+    apricot: #FFCB7C;
+    cream: #FFEFD2;
+    dark-brown: #59311A;
+    -fx-background-color: off-white;
+}
+
+.text-field {
+    -fx-background-color: dust-grey;
+    -fx-font: 15px 'Consolas';
+    -fx-text-fill: brown;
+}
+
+.button {
+    -fx-background-color: apricot;
+    -fx-font: 15px 'Segoe UI Semibold';
+    -fx-text-fill: dark-brown;
+}
+
+.button:hover {
+    -fx-background-color: sunflower;
+}
+
+.button:pressed {
+    -fx-background-color: brown;
+}
+
+.scroll-pane,
+.scroll-pane .viewport {
+    -fx-background-color: transparent;
+}
+
+.scroll-bar {
+    -fx-font-size: 8px;
+    -fx-background-color: off-white;
+}
+
+.scroll-bar .thumb {
+    -fx-background-color: apricot;
+    -fx-background-radius: 1em;
+}
+
+.scroll-bar .increment-button,
+.scroll-bar .decrement-button {
+    -fx-pref-height: 0;
+    -fx-opacity: 0;
+}
+

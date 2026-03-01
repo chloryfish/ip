@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.HBox?>
+
+
+<fx:root type="javafx.scene.layout.HBox"
+         xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1"
+         style="-fx-padding: 10 10 20 10; -fx-background-color: #FFEFD2;
+                -fx-border-color: apricot; -fx-border-width: 1">
+
+    <ImageView fx:id="crumbAvatar"
+               fitWidth="70"
+               fitHeight="70"
+               preserveRatio="true"/>
+
+    <Label fx:id="dialog"
+           style="-fx-text-alignment: left;
+                  -fx-text-padding: 5 15 0 15;
+                  -fx-font: 15px 'Segoe UI Semibold';
+                  -fx-wrap-text: true;
+                  -fx-text-fill: #59311A;">
+    </Label>
+
+</fx:root>

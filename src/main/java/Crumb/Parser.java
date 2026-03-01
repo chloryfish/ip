@@ -40,21 +40,18 @@ public class Parser {
             switch (instruction[0].toLowerCase()) {
                 case "todo" -> {
                     if (instruction.length < 2) {
-                        Ui.showMissingDescriptionError();
-                        return null;
+                        throw new IllegalArgumentException(UiString.getMissingDescriptionError());
                     }
                     return new CreateToDoCommand(instruction[1]);
                 }
                 case "deadline" -> {
                     if (instruction.length < 2) {
-                        Ui.showMissingDescriptionError();
-                        return null;
+                        throw new IllegalArgumentException(UiString.getMissingDescriptionError());
                     }
                     String body = instruction[1];
                     String[] s = body.split(" /by ", 2);
                     if (s.length < 2) {
-                        Ui.showMissingByError();
-                        return null;
+                        throw new IllegalArgumentException(UiString.getMissingByError());
                     }
 
                     LocalDate by = parseDate(s[1]);
@@ -65,20 +62,17 @@ public class Parser {
                 }
                 case "event" -> {
                     if (instruction.length < 2) {
-                        Ui.showMissingDescriptionError();
-                        return null;
+                        throw new IllegalArgumentException(UiString.getMissingDescriptionError());
                     }
                     String body = instruction[1];
                     String[] s1 = body.split(" /from ", 2);
                     if (s1.length < 2) {
-                        Ui.showMissingFromError();
-                        return null;
+                        throw new IllegalArgumentException(UiString.getMissingFromError());
                     }
                     String desc = s1[0];
                     String[] s2 = s1[1].split(" /to ", 2);
                     if (s2.length < 2) {
-                        Ui.showMissingToError();
-                        return null;
+                        throw new IllegalArgumentException(UiString.getMissingToError());
                     }
                     LocalDate from = parseDate(s2[0]);
                     LocalDate to = parseDate(s2[1]);
@@ -90,16 +84,14 @@ public class Parser {
                 }
                 case "mark" -> {
                     if (instruction.length < 2 || !instruction[1].matches("\\d+")) {
-                        Ui.showInvalidIndexError();
-                        return null;
+                        throw new IllegalArgumentException(UiString.getInvalidIndexError());
                     }
                     int idx = Integer.parseInt(instruction[1]);
                     return new MarkCommand(idx - 1);
                 }
                 case "unmark" -> {
                     if (instruction.length < 2 || !instruction[1].matches("\\d+")) {
-                        Ui.showInvalidIndexError();
-                        return null;
+                        throw new IllegalArgumentException(UiString.getInvalidIndexError());
                     }
                     int idx = Integer.parseInt(instruction[1]);
                     return new UnmarkCommand(idx - 1);
@@ -107,16 +99,14 @@ public class Parser {
                 }
                 case "delete" -> {
                     if (instruction.length < 2 || !instruction[1].matches("\\d+")) {
-                        Ui.showInvalidIndexError();
-                        return null;
+                        throw new IllegalArgumentException(UiString.getInvalidIndexError());
                     }
                     int idx = Integer.parseInt(instruction[1]);
                     return new DeleteCommand(idx - 1);
                 }
                 case "find" -> {
                     if (instruction.length < 2) {
-                        Ui.showMissingQueryError();
-                        return null;
+                        throw new IllegalArgumentException(UiString.getMissingQueryError());
                     }
                     return new FindCommand(instruction[1]);
                 }
@@ -130,12 +120,11 @@ public class Parser {
                     return new ExitCommand();
                 }
                 default -> {
-                    Ui.showUnknownCommandError();
-                    return null;
+                    throw new IllegalArgumentException(UiString.getUnknownCommandError());
                 }
             }
         } catch (Exception e) {
-            throw new RuntimeException(e);
+            throw e;
         }
     }
 
@@ -148,8 +137,7 @@ public class Parser {
         try {
             return LocalDate.parse(dateString, FORMATTER);
         } catch (DateTimeParseException e) {
-            Ui.showInvalidDateError();
-            return null;
+            throw new IllegalArgumentException(UiString.getInvalidDateError());
         }
     }
 

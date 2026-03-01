@@ -10,7 +10,7 @@ import Crumb.TaskList;
  * Command
  */
 public abstract class Command {
-    public abstract void execute(TaskList tasks, Storage storage) throws IOException;
+    public abstract String execute(TaskList tasks, Storage storage) throws IOException;
 
     public boolean isExit() {
         return false;

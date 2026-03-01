@@ -4,7 +4,7 @@ import java.io.IOException;
 
 import Crumb.Storage;
 import Crumb.TaskList;
-import Crumb.Ui;
+import Crumb.UiString;
 
 
 /**
@@ -26,10 +26,10 @@ public class DeleteCommand extends Command {
     /**
      * Executes this command
      */
-    public void execute(TaskList tasks, Storage storage) throws IOException {
+    public String execute(TaskList tasks, Storage storage) throws IOException {
         String s = tasks.getShorthand(index);
         tasks.deleteTask(index);
         storage.saveData(tasks);
-        Ui.showSuccessMessage("delete", s);
+        return UiString.getSuccessMessage("delete", s);
     }
 }

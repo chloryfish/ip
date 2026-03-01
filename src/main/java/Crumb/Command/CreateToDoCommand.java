@@ -4,7 +4,7 @@ import java.io.IOException;
 
 import Crumb.Storage;
 import Crumb.TaskList;
-import Crumb.Ui;
+import Crumb.UiString;
 
 
 /**
@@ -25,9 +25,9 @@ public class CreateToDoCommand extends Command {
     /**
      * Executes this command
      */
-    public void execute(TaskList tasks, Storage storage) throws IOException {
+    public String execute(TaskList tasks, Storage storage) throws IOException {
         int index = tasks.addTask(this.description);
         storage.saveData(tasks);
-        Ui.showSuccessMessage("add", tasks.getShorthand(index));
+        return UiString.getSuccessMessage("add", tasks.getShorthand(index));
     }
 }

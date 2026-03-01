@@ -4,7 +4,7 @@ import java.io.IOException;
 
 import Crumb.Storage;
 import Crumb.TaskList;
-import Crumb.Ui;
+import Crumb.UiString;
 
 /**
  * Command that marks a task as not done
@@ -25,9 +25,10 @@ public class UnmarkCommand extends Command {
     /**
      * Executes this command
      */
-    public void execute(TaskList tasks, Storage storage) throws IOException {
+    public String execute(TaskList tasks, Storage storage) throws IOException {
         tasks.unMarkTask(index);
-        Ui.showSuccessMessage("unmark", tasks.getShorthand(index));
+        String msg = UiString.getSuccessMessage("unmark", tasks.getShorthand(index));
         storage.saveData(tasks);
+        return msg;
     }
 }
