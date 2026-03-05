@@ -48,7 +48,7 @@ application {
 }
 
 shadowJar {
-    archiveBaseName = "crumb"
+    archiveFileName = "crumb.jar"
     archiveClassifier = null
 }
 

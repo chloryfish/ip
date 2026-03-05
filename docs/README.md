@@ -1,30 +1,67 @@
 # Crumb User Guide
 
-// Update the title above to match the actual product name
+Crumb is a CLI-based desktop To-Do list app. 
 
-// Product screenshot goes here
+![Ui](Ui.png)
 
-// Product intro goes here
+## Quick Start
 
-## Adding deadlines
+1. Ensure you have Java 17 or above installed in your Computer.
 
-// Describe the action and its outcome.
+2. Download the latest .jar file.
 
-// Give examples of usage
+3. Copy the file to the folder you want to use as the home folder for Crumb.
 
-Example: `keyword (optional arguments)`
+4. Open a command terminal, cd into the folder you put the jar file in, and use the java -jar crumb.jar command to run the application.
 
-// A description of the expected outcome goes here
+Crumb should be up and running in a few seconds.
 
+## Commands
+
+### Adding tasks : `todo`, `deadline`, `event`
+There are three types of tasks that can be added to your list:
+1. **To-Do** - for simple tasks
+     - `todo <task name>`
+2. **Deadline** - for tasks with a deadline
+    - `deadline <task name> /by <DDMMYY>`
+3. **Events** - for events with a start and end date
+    - `events <task name> /from <DDMMYY> /to <DDMMYY>`
+
+For example,
 ```
-expected output
+todo Write Essay
+deadline Submit Assignment /by 301126
+event Weekend trip /from 030126 /to 05/0126
 ```
 
-## Feature ABC
+> [!NOTE]
+> Dates are in DDMMYY format. For example, 01 March 2026 -> '010326'
 
-// Feature details
+### Displaying tasks : `list`
+Shows all the tasks in your list.
 
 
-## Feature XYZ
+### Deleting tasks : `delete`
 
-// Feature details
+Deletes a task permanently. 
+
+Format: `delete <index>`
+
+
+### Marking tasks as Done : `mark`, `unmark`
+To mark a task as done, use the command `mark <index>`.
+
+To un-mark a completed task, use the command `unmark <index>`.
+
+### Searching in tasks : `find`
+Search for tasks that contain a given keyword, using the command `find <keyword>`.
+
+All tasks that contain the keyword will be displayed.
+
+Note: The search is case-sensitive.
+
+### Help : `help`
+Shows a list of all commands.
+
+### Exiting the app : `bye`
+Exits the program.
