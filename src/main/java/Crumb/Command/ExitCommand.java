@@ -1,5 +1,6 @@
 package Crumb.Command;
 
+import Crumb.Response;
 import Crumb.Storage;
 import Crumb.TaskList;
 import Crumb.UiString;
@@ -11,8 +12,8 @@ public class ExitCommand extends Command {
     /**
      * Executes this command
      */
-    public String execute(TaskList tasks, Storage storage) {
-        return UiString.getGoodbye();
+    public Response execute(TaskList tasks, Storage storage) {
+        return new Response(UiString.getGoodbye());
     }
 
     @Override

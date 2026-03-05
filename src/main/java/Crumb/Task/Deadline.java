@@ -31,15 +31,13 @@ public class Deadline extends Task {
     }
 
     /**
-     * Returns this task as readable string with index
-     * Referenced by TaskList -> Ui
-     * @param index of task
+     * Returns this task's details (deadline) as readable string
+     * Referenced by TaskItem
      * @return formatted string
      */
     @Override
-    public String toShorthand(int index) {
-        return index + ". [D] " + description
-                + " (by: " + Parser.formatDateReadable(by) + ")";
+    public String getDetails() {
+        return "Deadline | By " + Parser.formatDateReadable(by);
     }
 
     /**

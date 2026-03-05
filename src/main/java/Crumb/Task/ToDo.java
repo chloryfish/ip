@@ -32,13 +32,12 @@ public class ToDo extends Task {
     }
 
     /**
-     * Returns this task as readable string with index
-     * Referenced by TaskList -> Ui
-     * @param index of task
+     * Returns this task's details as readable string
+     * Referenced by TaskItem
      * @return formatted string
      */
     @Override
-    public String toShorthand(int index) {
-        return index + ". [T] " + description;
+    public String getDetails() {
+        return "To-Do";
     }
 }

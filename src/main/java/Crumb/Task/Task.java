@@ -20,6 +20,14 @@ public class Task {
         return (isDone ? "X" : " "); // mark done task with X
     }
 
+    public boolean getIsDone() {
+        return this.isDone;
+    }
+
+    public String getDetails() {
+        return "";
+    }
+
     public String getDescription() {
         return this.description;
     }

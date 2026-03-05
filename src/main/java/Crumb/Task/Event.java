@@ -38,16 +38,13 @@ public class Event extends Task {
     }
 
     /**
-     * Returns this task as readable string with index
-     * Referenced by TaskList -> Ui
-     * @param index of task
+     * Returns this task's details (from and to) as readable string
+     * Referenced by TaskItem
      * @return formatted string
      */
     @Override
-    public String toShorthand(int index) {
-        return index + ". [E] " + description + " (from: "
-                + Parser.formatDateReadable(from) + " to: "
-                + Parser.formatDateReadable(to) + ")";
+    public String getDetails() {
+        return "Event | " + Parser.formatDateReadable(from) + " - " + Parser.formatDateReadable(to);
     }
 
     /**

@@ -53,22 +53,20 @@ public class Crumb {
         new Crumb("data/tasks.txt").run();
     }
 
-    public String getResponse(String userInput) {
+    public Response getResponse(String userInput) {
         try {
             Command c = Parser.parse(userInput);
             if (c != null) {
-                String output = c.execute(tasks, storage);
+                Response output = c.execute(tasks, storage);
                 if (c.isExit()) {
                     System.exit(0);
                 }
                 return output;
             }
         } catch (Exception e) {
-            /*System.out.println(e.toString());
-            System.out.println(e.getMessage());*/
-            return UiString.getErrorMessage(e.getMessage());
+            return new Response(UiString.getErrorMessage(e.getMessage()));
         }
-        return "";
+        return new Response("");
     }
 
 }

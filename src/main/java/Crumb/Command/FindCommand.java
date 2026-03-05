@@ -2,10 +2,12 @@ package Crumb.Command;
 
 import java.util.ArrayList;
 
+import Crumb.Response;
 import Crumb.Storage;
 import Crumb.Task.Task;
 import Crumb.TaskList;
 import Crumb.UiString;
+import javafx.util.Pair;
 
 
 /**
@@ -25,9 +27,8 @@ public class FindCommand extends Command {
     /**
      * Executes this command
      */
-    public String execute(TaskList tasks, Storage storage) {
-        ArrayList<Task> t = tasks.findTasks(this.keyword);
-        String results = tasks.formatList(t);
-        return UiString.getSearchResults(results);
+    public Response execute(TaskList tasks, Storage storage) {
+        ArrayList<Pair<Integer, Task>> t = tasks.findTasks(this.keyword);
+        return new Response(UiString.getFindMessage(), t);
     }
 }

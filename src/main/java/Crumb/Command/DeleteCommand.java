@@ -1,10 +1,14 @@
 package Crumb.Command;
 
 import java.io.IOException;
+import java.util.ArrayList;
 
+import Crumb.Response;
 import Crumb.Storage;
+import Crumb.Task.Task;
 import Crumb.TaskList;
 import Crumb.UiString;
+import javafx.util.Pair;
 
 
 /**
@@ -26,10 +30,12 @@ public class DeleteCommand extends Command {
     /**
      * Executes this command
      */
-    public String execute(TaskList tasks, Storage storage) throws IOException {
-        String s = tasks.getShorthand(index);
+    public Response execute(TaskList tasks, Storage storage) throws IOException {
+        ArrayList<Pair<Integer, Task>> tl = new ArrayList<>();
+        tl.add(new Pair<>(index + 1, tasks.getTask(this.index)));
         tasks.deleteTask(index);
         storage.saveData(tasks);
-        return UiString.getSuccessMessage("delete", s);
+        return new Response(UiString.getSuccessMessage("delete"),
+                tl);
     }
 }

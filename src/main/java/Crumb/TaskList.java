@@ -7,6 +7,7 @@ import Crumb.Task.Deadline;
 import Crumb.Task.Event;
 import Crumb.Task.Task;
 import Crumb.Task.ToDo;
+import javafx.util.Pair;
 
 
 /**
@@ -48,6 +49,29 @@ public class TaskList {
      */
     public Task getTask(int index) {
         return this.tasks.get(index);
+    }
+
+    public ArrayList<Pair<Integer, Task>> getIndexedTasks() {
+        ArrayList<Pair<Integer, Task>> out = new ArrayList<>();
+        for (int i = 0; i < this.tasks.size(); i++) {
+            out.add(new Pair<>(i + 1, this.tasks.get(i)));
+        }
+        return out;
+    }
+
+    /**
+     * Finds tasks that contain a certain keyword in their description
+     * @param keyword to find in descriptions
+     * @return ArrayList of tasks that match query
+     */
+    public ArrayList<Pair<Integer, Task>> findTasks(String keyword) {
+        ArrayList<Pair<Integer, Task>> out = new ArrayList<>();
+        for (int i = 0; i < this.tasks.size(); i++) {
+            if (this.tasks.get(i).getDescription().contains(keyword)) {
+                out.add(new Pair<>(i + 1, this.tasks.get(i)));
+            }
+        }
+        return out;
     }
 
     /**
@@ -111,52 +135,15 @@ public class TaskList {
     }
 
     /**
-     * Finds tasks that contain a certain keyword in their description
-     * @param keyword to find in descriptions
-     * @return ArrayList of tasks that match query
-     */
-    public ArrayList<Task> findTasks(String keyword) {
-        ArrayList<Task> out = new ArrayList<>();
-        for (Task t : this.tasks) {
-            if (t.getDescription().contains(keyword)) {
-                out.add(t);
-            }
-        }
-        return out;
-    }
-
-    /**
      * Returns this task list as formatted multi-line string
      * @return formatted string
      */
     public String formatList() {
         String out = "";
         for (int i = 0; i < this.getCount(); i++) {
-            out += (i + 1) + ". " + tasks.get(i).toString() + "\n";
+            out += (i + 1) + ". " + this.tasks.get(i).toString() + "\n";
         }
         return out;
-    }
-
-    /**
-     * Returns given task list as formatted multi-line string
-     * Referenced by FindCommand
-     * @return formatted string
-     */
-    public static String formatList(ArrayList<Task> t) {
-        String out = "";
-        for (int i = 0; i < t.size(); i++) {
-            out += (i + 1) + ". " + t.get(i).toString() + "\n";
-        }
-        return out;
-    }
-
-    /**
-     * Returns short readable string for a single task
-     * @param index of task
-     * @return formatted string
-     */
-    public String getShorthand(int index) {
-        return this.tasks.get(index).toShorthand(index + 1);
     }
 
 }

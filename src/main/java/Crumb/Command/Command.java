@@ -2,6 +2,7 @@ package Crumb.Command;
 
 import java.io.IOException;
 
+import Crumb.Response;
 import Crumb.Storage;
 import Crumb.TaskList;
 
@@ -10,7 +11,7 @@ import Crumb.TaskList;
  * Command
  */
 public abstract class Command {
-    public abstract String execute(TaskList tasks, Storage storage) throws IOException;
+    public abstract Response execute(TaskList tasks, Storage storage) throws IOException;
 
     public boolean isExit() {
         return false;

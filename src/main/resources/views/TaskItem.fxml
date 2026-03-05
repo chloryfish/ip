@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Text?>
+
+<fx:root type="javafx.scene.layout.HBox" minWidth="250.0" styleClass="taskItem"
+         xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1"
+         stylesheets="@../css/task.css">
+    <HBox fx:id="leftBar" styleClass="leftBar" alignment="CENTER"> <!--coloured bar-->
+        <Label fx:id="indexLabel" styleClass="indexLabel" alignment="CENTER" maxWidth="Infinity" text="01" HBox.hgrow="ALWAYS" /> <!--index-->
+    </HBox>
+    <VBox style="-fx-padding: 4 8 4 8;">
+        <Text fx:id="taskName" styleClass="taskNameText" wrappingWidth="200">
+            Task Name
+        </Text>
+        <Label fx:id="taskDetails" styleClass="taskSubtext">
+            Task details | Due today
+        </Label>
+    </VBox>
+</fx:root>

@@ -10,13 +10,17 @@ public class UiString {
      * Displays welcome message, the first message on start
      */
     public static String getWelcome() {
-        return "Hey, I'm Crumb! :)\nWhat can I do for you?\n" + getInstructionTable();
+        return "Hey, I'm Crumb! :)\nWhat can I do for you?";
+    }
+
+    public static String getHelp() {
+        return "Here's what I can help with!\n" + getInstructionList();
     }
 
     /**
      * Displays instruction table
      */
-    public static String getInstructionTable() {
+    public static String getInstructionList() {
         return "    Adding tasks:\n"
                 + "        - todo <desc>\n"
                 + "        - deadline <desc> /by <DDMMYY>\n"
@@ -46,26 +50,28 @@ public class UiString {
      * Displays success message for commands:
      * mark, unmark, add, remove
      */
-    public static String getSuccessMessage(String command, String s) {
-        String out = s;
-
+    public static String getSuccessMessage(String command) {
         if (command.equals("mark")) {
-            out += " completed. Good job!";
+            return "Completed this task. Good job!";
         } else if (command.equals("unmark")) {
-            out += " marked as not done yet.";
+            return "This task has been marked as incomplete:";
         } else if (command.equals("delete")) {
-            out += " removed from your list.";
-        } else {
-            out += " added to your list.";
+            return "This task was deleted:";
+        } else if (command.equals("add")) {
+            return "New task was added to your list:";
         }
-        return out;
+        return "";
     }
 
     /**
      * Displays results of "find" command
      */
-    public static String getSearchResults(String results) {
-        return "Here are the matching tasks in your list: \n" + results;
+    public static String getFindMessage() {
+        return "Here are the matching tasks from your list";
+    }
+
+    public static String getListMessage() {
+        return "Here are all the tasks in your list!";
     }
 
     /**
@@ -149,7 +155,7 @@ public class UiString {
      * Invalid command word
      */
     public static String getUnknownCommandError() {
-        return "I'm not sure what that means :(\nHere's what I can do for you,\n" + getInstructionTable();
+        return "I'm not sure what that means :(\nHere's what I can do for you,\n" + getInstructionList();
     }
 
     /**

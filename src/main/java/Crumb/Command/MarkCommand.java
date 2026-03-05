@@ -1,10 +1,14 @@
 package Crumb.Command;
 
 import java.io.IOException;
+import java.util.ArrayList;
 
+import Crumb.Response;
 import Crumb.Storage;
+import Crumb.Task.Task;
 import Crumb.TaskList;
 import Crumb.UiString;
+import javafx.util.Pair;
 
 
 /**
@@ -26,10 +30,12 @@ public class MarkCommand extends Command {
     /**
      * Executes this command
      */
-    public String execute(TaskList tasks, Storage storage) throws IOException {
+    public Response execute(TaskList tasks, Storage storage) throws IOException {
         tasks.markTask(index);
-        String msg = UiString.getSuccessMessage("mark", tasks.getShorthand(index));
+        ArrayList<Pair<Integer, Task>> tl = new ArrayList<>();
+        tl.add(new Pair<>(index + 1, tasks.getTask(index)));
+        String msg = UiString.getSuccessMessage("mark");
         storage.saveData(tasks);
-        return msg;
+        return new Response(msg, tl);
     }
 }

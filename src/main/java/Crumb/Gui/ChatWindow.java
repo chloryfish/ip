@@ -1,6 +1,7 @@
 package Crumb.Gui;
 
 import Crumb.Crumb;
+import Crumb.Response;
 import Crumb.UiString;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
@@ -52,12 +53,20 @@ public class ChatWindow extends AnchorPane {
     @FXML
     private void handleUserInput() {
         String input = userInput.getText();
-        String response = crumb.getResponse(input);
-        //System.out.println(response);
-        dialogContainer.getChildren().addAll(
-                DialogBox.getUserDialog(input),
-                DialogBox.getSystemDialog(response, crumbImage)
-        );
+        Response resp = crumb.getResponse(input);
+        if (resp.hasTasks()) {
+            dialogContainer.getChildren().addAll(
+                    DialogBox.getUserDialog(input),
+                    DialogBox.getSystemDialog(resp.getMessage(), crumbImage, resp.getTaskList())
+            );
+        /*} else if (resp.isHelp()) {
+            // Display command table*/
+        } else {
+            dialogContainer.getChildren().addAll(
+                    DialogBox.getUserDialog(input),
+                    DialogBox.getSystemDialog(resp.getMessage(), crumbImage)
+            );
+        }
         userInput.clear();
     }
 }

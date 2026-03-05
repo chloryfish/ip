@@ -1,0 +1,62 @@
+.root {
+    sunflower: #FEB537;
+    brown: #9D572C;
+    almost-black: #140A07;
+    dark-grey: #7A726C;
+    mid-grey: #ADA69E;
+    dust-grey: #DFDAD0;
+    off-white: #FFFAEE;
+    apricot: #FFCB7C;
+    cream: #FFEFD2;
+    dark-brown: #59311A;
+    -fx-background-color: off-white;
+}
+
+.taskItem {
+    -fx-background-color: #FFFAEE;
+    -fx-background-radius: 8;
+    -fx-border-color: #9D572C;
+    -fx-border-radius: 8;
+}
+
+.grey-border {
+    -fx-border-color: #7A726C;
+}
+
+.leftBar {
+    -fx-background-radius: 7 0 0 7;
+    -fx-padding: 3 6 3 6;
+    -fx-background-color: brown;
+}
+
+.leftBar-done {
+    -fx-background-color: #ADA69E;
+}
+
+.indexLabel {
+    -fx-text-fill: dark-brown;
+    -fx-font: 16px 'Segoe UI Semibold';
+}
+
+.indexLabel-done {
+    -fx-text-fill: #7A726C;
+}
+
+.taskNameText {
+    -fx-font: 16px 'Segoe UI Semibold';
+    -fx-fill: dark-brown;
+}
+
+.taskNameText-done {
+    -fx-font: 16px 'Segoe UI Semibold';
+    -fx-fill: #ADA69E;
+}
+
+.taskSubtext {
+    -fx-font: 11px 'Segoe UI';
+    -fx-text-fill: dark-grey;
+}
+
+.taskSubtext-done {
+    -fx-text-fill: #ADA69E;
+}
