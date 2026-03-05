@@ -5,6 +5,8 @@ import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.nio.file.StandardCopyOption;
 import java.time.LocalDate;
 import java.util.ArrayList;
@@ -40,8 +42,11 @@ public class Storage {
      * @return list of tasks in ArrayList
      */
     public ArrayList<Task> load() throws IOException {
-        File file = new File(filePath);
-        file.createNewFile();
+        Path dataDir = Paths.get("data");
+        Files.createDirectories(dataDir);
+
+        File file = dataDir.resolve("tasks.txt").toFile();
+        File temp = dataDir.resolve("tasks.tmp").toFile();
         Scanner sc = new Scanner(file);
         ArrayList<Task> tasks = new ArrayList<>();
         int c = 0;

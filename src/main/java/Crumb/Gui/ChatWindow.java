@@ -28,7 +28,7 @@ public class ChatWindow extends AnchorPane {
 
     private Crumb crumb;
 
-    private Image crumbImage = new Image(this.getClass().getResourceAsStream("/images/Crumb-line.png"));
+    private Image crumbImage = new Image(this.getClass().getResourceAsStream("/images/crumb-line.png"));
 
     /**
      * Initialises the main chat window and adds System's welcome message
