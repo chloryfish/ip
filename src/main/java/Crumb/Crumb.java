@@ -27,32 +27,7 @@ public class Crumb {
             tasks = new TaskList();
         }
     }
-
-    /**
-     * Run the application
-     */
-    public void run() {
-        Ui.showWelcome();
-        boolean isExit = false;
-        while (!isExit) {
-            try {
-                String fullCommand = Ui.readCommand();
-                Command c = Parser.parse(fullCommand);
-                if (c != null) {
-                    c.execute(tasks, storage);
-                    isExit = c.isExit();
-                }
-            } catch (Exception e) {
-                Ui.showError(e.getMessage());
-            } finally {
-                Ui.newLine();
-            }
-        }
-    }
-    public static void main(String[] args) {
-        new Crumb("data/tasks.txt").run();
-    }
-
+    
     public Response getResponse(String userInput) {
         try {
             Command c = Parser.parse(userInput);
