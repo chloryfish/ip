@@ -27,7 +27,12 @@ public class Crumb {
             tasks = new TaskList();
         }
     }
-    
+
+    /**
+     * Returns a response object, given user input as string
+     * @param userInput user-provided command
+     * @return response
+     */
     public Response getResponse(String userInput) {
         try {
             Command c = Parser.parse(userInput);
