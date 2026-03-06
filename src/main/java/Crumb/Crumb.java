@@ -23,7 +23,7 @@ public class Crumb {
             ArrayList<Task> tList = storage.load();
             tasks = new TaskList(tList);
         } catch (Exception e) {
-            Ui.showLoadingError();
+            System.out.println("There was an issue loading your data.");
             tasks = new TaskList();
         }
     }
